@@ -33,6 +33,35 @@
             </label>
         </fieldset>
     </main>
+
+    <script>
+        // Recuperar os dados do localStorage
+        const agendamento = JSON.parse(localStorage.getItem("agendamento"));
+        if (agendamento) {
+            document.getElementById("nome").textContent = agendamento.name;
+            document.getElementById("telefone").textContent = agendamento.phone;
+            document.getElementById("servico").textContent = agendamento.service;
+            document.getElementById("data").textContent = agendamento.date;
+            document.getElementById("hora").textContent = agendamento.time;
+
+            localStorage.setItem("agendamento", JSON.stringify({
+            name,
+            phone,
+            service,
+            date,
+            time
+        }));
+
+        // Redirecionar para a nova página
+        window.location.href = "confirmacao.html"; // Altere o nome do arquivo conforme necessário
+
+            // Remover os dados do localStorage (opcional)
+            localStorage.removeItem("agendamento");
+        } else {
+            // Se não houver agendamento, redirecionar de volta
+            window.location.href = "index.html"; // Altere conforme necessário
+        }
+    </script>
 </body>
 
 </html>
