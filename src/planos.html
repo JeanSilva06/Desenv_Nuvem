@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia - Planos</title>
+    <link rel="stylesheet" href="style.css"> 
+    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+    <link rel="shortcut icon" href="2df1c7f5079ed2cda256a626576a6257-logotipo-do-bigode-no-guiador.png" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <img src="" alt="">
+            <a href="/index.html">INICIO</a>
+            <a href="agendamentos.html">AGENDAMENTOS</a>
+            <a href="planos.html">PLANOS</a>
+        </nav>
+    </header>
+    <main class="container">
+        <section class="container__label">
+            <form id="subscription-form">
+              <form id="subscription-form">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" required>
+            
+                <label for="username">Usuário:</label>
+                <input type="text" id="username" name="username" required>
+            
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+            
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" name="cpf" required maxlength="14" placeholder="000.000.000-00" oninput="formatCPF(this)">
+            
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+            
+                <fieldset>
+                    <legend>Escolha seu plano:</legend>
+                    <label>
+                        <input type="radio" id="plano" name="plano" value="basico" required>
+                        Básico - 160,00 mensal
+                    </label>
+                    <label>
+                        <input type="radio" id="plano" name="plano" value="premium" required>
+                        Premium - 240,00 mensal
+                    </label>
+                </fieldset>
+            
+                <button type="submit" id="createButton">Enviar</button>
+            </form>
+    
+            </section>
+            
+    </main>
+
+
+
+    <div class="container__service">
+        <div class="container__plano"><h1>Planos</h1></div>
+<div class="container__box">
+
+<div class="container__boxs">
+
+    <h1>Básico</h1>
+    <p>O Plano Básico inclui até 3 cortes de cabelo e barba por mês. 
+        Ideal para quem deseja manter o visual em dia com atendimentos regulares e práticos.</p></div>
+<div class="container__boxs">
+    <h1>Premium</h1>
+<p>O O Plano Premium oferece cortes de cabelo e barba ilimitados durante o mês. Perfeito para 
+    quem busca flexibilidade e um cuidado contínuo, garantindo sempre um visual impecável.</p></div>
+</div>
+</div>
+
+<script src="script.js"></SCRIPT>
+
+<script>
+// Initialize Parse
+Parse.initialize("dePG2YGB5210rOWP1u6KCdgH0YaNybsE1FYqAgK4", "ed2cxBIk0tbT5raSa96ExEFd3T1KVdS8hYumL7G6"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+Parse.serverURL = "https://parseapi.back4app.com/";
+
+async function createParseUser() {
+    let user = new Parse.User();
+    user.set("name", document.getElementById("name").value);
+    user.set("username", document.getElementById("username").value); 
+    user.set("password", document.getElementById("password").value); 
+    user.set("cpf", document.getElementById("cpf").value);
+    user.set("email", document.getElementById("email").value);
+    user.set("plano", document.querySelector('input[name="plano"]:checked').value);
+
+    try {
+        user = await user.signUp(); 
+        if (user) {
+            alert(`Novo usuário criado com sucesso!`);
+            window.location.href = `index.html?username=${user.get("username")}`;
+        }
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    }
+}
+
+document.getElementById("createButton").addEventListener("click", async function (event) {
+    event.preventDefault();
+    createParseUser();
+});
+</script>
+
+
+</body>
+</html>

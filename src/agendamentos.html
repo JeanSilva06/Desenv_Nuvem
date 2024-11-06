@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia - Agendamentos</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+    <link rel="shortcut icon" href="2df1c7f5079ed2cda256a626576a6257-logotipo-do-bigode-no-guiador.png" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="/index.html">INICIO</a>
+            <a href="agendamentos.html">AGENDAMENTOS</a>
+            <a href="planos.html">PLANOS</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="agendamento">
+            <h1>Agende seu Atendimento</h1><br>
+            <form id="agendamento-form" onsubmit="return false;">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="phone">Telefone:</label>
+                <input type="tel" id="phone" name="phone" required placeholder="(xx) xxxxx-xxxx">
+
+                <label for="service">Serviço:</label>
+                <select type="service" id="service" name="service" required>
+                    <option value="">Escolha um serviço</option>
+                    <option value="corte">Corte de Cabelo</option>
+                    <option value="barba">Barba</option>
+                    <option value="corte_barba">Corte de Cabelo e Barba</option>
+                </select>
+
+                <label for="date">Data:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="time">Hora:</label>
+                <input type="time" id="time" name="time" required>
+
+                <button type="submit" id="agendarButton">Agendar</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        Parse.initialize("dePG2YGB5210rOWP1u6KCdgH0YaNybsE1FYqAgK4", "ed2cxBIk0tbT5raSa96ExEFd3T1KVdS8hYumL7G6");
+        Parse.serverURL = "https://parseapi.back4app.com/";
+    
+        // Função para agendar atendimento
+        async function agendarAtendimento() {
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const service = document.getElementById("service").value;
+            const date = document.getElementById("date").value;
+            const time = document.getElementById("time").value;
+    
+            // Cria um novo objeto de agendamento
+            const Agendamento = Parse.Object.extend("Agendamento");
+            const agendamento = new Agendamento();
+    
+            // Define os atributos do objeto
+            agendamento.set("name", name);
+            agendamento.set("phone", phone);
+            agendamento.set("service", service);
+            agendamento.set("date", date);
+            agendamento.set("time", time);
+    
+            try {
+                // Salva o objeto no banco de dados
+                await agendamento.save();
+                alert(`Agendamento feito com sucesso!\nNome: ${name}\nServiço: ${service}\nData: ${date}\nHora: ${time}`);
+                   // Armazenar os dados no localStorage
+        localStorage.setItem("agendamento", JSON.stringify({
+            name,
+            phone,
+            service,
+            date,
+            time
+        }));
+
+        // Redirecionar para a nova página
+        window.location.href = "confirmacao.html"; // Altere o nome do arquivo conforme necessário
+            
+            } catch (error) {
+                alert(`Erro ao agendar: ${error.message}`);
+            }
+        }
+
+        
+        document.getElementById("name").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("service").value = "";
+        document.getElementById("date").value = "";
+        document.getElementById("time").value = "";
+
+        // Adiciona o listener ao botão de agendar
+        document.getElementById("agendarButton").addEventListener("click", async function () {
+            await agendarAtendimento();
+        });
+    </script>
+    
+</body>
+</html>

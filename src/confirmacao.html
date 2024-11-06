@@ -19,6 +19,49 @@
             <a href="planos.html">PLANOS</a>
         </nav>
     </header>
+
+    <main class="confirmacao--agendamento">
+        <fieldset>
+            <legend>Detalhes do Agendamento</legend>
+            <label>
+                    <h2></h2>
+                    <p><strong>Nome:</strong> <span id="nome"></span></p>
+                    <p><strong>Telefone:</strong> <span id="telefone"></span></p>
+                    <p><strong>Serviço:</strong> <span id="servico"></span></p>
+                    <p><strong>Data:</strong> <span id="data"></span></p>
+                    <p><strong>Hora:</strong> <span id="hora"></span></p>
+            </label>
+        </fieldset>
+    </main>
+
+    <script>
+        // Recuperar os dados do localStorage
+        const agendamento = JSON.parse(localStorage.getItem("agendamento"));
+        if (agendamento) {
+            document.getElementById("nome").textContent = agendamento.name;
+            document.getElementById("telefone").textContent = agendamento.phone;
+            document.getElementById("servico").textContent = agendamento.service;
+            document.getElementById("data").textContent = agendamento.date;
+            document.getElementById("hora").textContent = agendamento.time;
+
+            localStorage.setItem("agendamento", JSON.stringify({
+            name,
+            phone,
+            service,
+            date,
+            time
+        }));
+
+        // Redirecionar para a nova página
+        window.location.href = "confirmacao.html"; // Altere o nome do arquivo conforme necessário
+
+            // Remover os dados do localStorage (opcional)
+            localStorage.removeItem("agendamento");
+        } else {
+            // Se não houver agendamento, redirecionar de volta
+            window.location.href = "index.html"; // Altere conforme necessário
+        }
+    </script>
 </body>
 
 </html>

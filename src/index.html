@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Usuário</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="/index.html">INICIO</a>
+            <a href="agendamentos.html">AGENDAMENTOS</a>
+            <a href="planos.html">PLANOS</a>
+        </nav>
+    </header>
+
+    <main class="container--index--user">
+        <h1>Bem-vindo, <span id="username"></span>!</h1>
+        <p><strong>Nome:</strong> <span id="name"></span></p>
+        <p><strong>CPF:</strong> <span id="cpf"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Plano:</strong> <span id="plano"></span></p>
+
+        <button id="edit-button">Editar informações</button>
+    </main>
+
+    <script>
+    // Inicializar o Parse (caso não tenha sido feito)
+    Parse.initialize("dePG2YGB5210rOWP1u6KCdgH0YaNybsE1FYqAgK4", "ed2cxBIk0tbT5raSa96ExEFd3T1KVdS8hYumL7G6");
+    Parse.serverURL = "https://parseapi.back4app.com/";
+
+    document.addEventListener("DOMContentLoaded", async function() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const username = urlParams.get('username');
+
+        if (!username) {
+            alert('Nome de usuário não encontrado.');
+            return;
+        }
+
+        // Busque as informações do usuário no banco de dados Parse
+        const User = Parse.Object.extend('_User');
+        const query = new Parse.Query(User);
+        query.equalTo('username', username);
+
+        try {
+            const user = await query.first();
+            if (user) {
+                document.getElementById("username").innerText = user.get("username");
+                document.getElementById("name").innerText = user.get("name");
+                document.getElementById("cpf").innerText = user.get("cpf");
+                document.getElementById("email").innerText = user.get("email");
+                document.getElementById("plano").innerText = user.get("plano");
+            } else {
+                alert('Usuário não encontrado.');
+            }
+        } catch (error) {
+            console.error('Erro ao buscar o usuário:', error);
+            alert('Erro ao buscar as informações do usuário.');
+        }
+    });
+
+    // Interatividade para edição de informações
+    document.getElementById("edit-button").addEventListener("click", function() {
+        alert('Funcionalidade de edição em breve!');
+    });
+    </script>
+</body>
+</html>
