@@ -1,6 +1,8 @@
 # Trabalho de Desenvolvimento de Software em Nuvem
 Equipe 3 --> Sistema de Barbearia
 ## Membros:
+ALBERTO HUARASTACA
+
 CAIO ALMEIDA BEZERRA
 
 FRANCISCO MARCIO BEZERRA DE SOUSA JUNIOR
