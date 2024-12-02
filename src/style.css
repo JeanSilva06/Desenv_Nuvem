@@ -37,18 +37,37 @@ body {
     text-decoration: none;
     color: var(--cor-primaria);
 }
+
 .navbar a:hover {
     color: var(--cor-secundaria);
+}
+.container-div {
+    display: flex;
+    justify-content: row;
+    justify-content: center;
+}
+.container-agen {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #222;
+    padding: 80px;
+    border-radius: 10px; /* Aumenta o arredondamento */
+    margin: 5% 0 2% 5%;
+    max-width: 500px;
+    border: 2px solid #444; 
+    font: var(--fonte-primaria);
 }
 .container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     background-color: #222;
-    padding: 20px;
+    padding: 80px;
     border-radius: 10px; /* Aumenta o arredondamento */
-    margin: 5% 0 2% 30%;
-    max-width: 600px;
+    margin: 5% 0 2% 5%;
+    width: 400px;
+    max-height: 600px;
     border: 2px solid #444; 
     font: var(--fonte-primaria);
 }
@@ -72,6 +91,11 @@ body {
     display: flex;
     justify-content: center;
     margin-top: 100px;
+}
+
+.link {
+    margin-top: 10px; /* Adiciona espaço entre o formulário e o link */
+    text-align: center; /* Alinha o texto no centro */
 }
 
 .confirmacao--agendamento label {
