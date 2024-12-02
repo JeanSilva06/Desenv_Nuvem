@@ -12,4 +12,4 @@ JEAN MATHEUS DE SOUSA SILVA
 YURI TEIXEIRA DA SILVA
 
 ## Link para o nosso relatório
-:books: **[Relatório](https://docs.google.com/document/d/1WCgXI_y8R8j4On9iTh6RAOYLr4VdIkT7R8LHtsUEV9I/edit?tab=t.0)**
+:books: **[Relatório](https://docs.google.com/document/d/1sznQh1P-F_tFzJm6Ksgm2-Uczqfc2ISt9xaH6YZim_M/edit?tab=t.0)**
