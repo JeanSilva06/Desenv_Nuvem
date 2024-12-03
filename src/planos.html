@@ -7,25 +7,23 @@
     <title>Barbearia - Planos</title>
     <link rel="stylesheet" href="style.css"> 
     <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
-    <link rel="shortcut icon" href="2df1c7f5079ed2cda256a626576a6257-logotipo-do-bigode-no-guiador.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./bigode.png" type="image/x-icon">
 </head>
 
 <body>
     <header>
         <nav class="navbar">
             <img src="" alt="">
-            <a href="/index.html">INICIO</a>
-            <a href="agendamentos.html">AGENDAMENTOS</a>
-            <a href="planos.html">PLANOS</a>
-            <a href="/src/login.html">LOGIN</a>    
+            <a href="../index.html">INICIO</a>
+            <a href="./agendamentos.html">AGENDAMENTOS</a>
+            <a href="./planos.html">PLANOS</a>
+            <a href="./login.html">LOGIN</a>    
         </nav>
     </header>
-    <main class="container" style="margin-left: 38%;">
+    <main class="container" style="margin: 100px 0 0 600px;">
         <section class="container__label">
             <form id="subscription-form">
               <form id="subscription-form">
-                <label for="name">Nome:</label>
-                <input type="text" id="name" name="name" required>
             
                 <label for="username">Usuário:</label>
                 <input type="text" id="username" name="username" required>
@@ -76,36 +74,44 @@
 </div>
 </div>
 
-<script src="script.js"></SCRIPT>
+<script src="./script.js"></script>
 
 <script>
 // Initialize Parse
-Parse.initialize("dePG2YGB5210rOWP1u6KCdgH0YaNybsE1FYqAgK4", "ed2cxBIk0tbT5raSa96ExEFd3T1KVdS8hYumL7G6"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+Parse.initialize("mnWzIi0uEOIUA8w4fNJM80GjUsMVToB0qny846I1", "nosYrvPdnTLShTPcB1ak03YvmrYfAxJxMUM5iD3T"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
 Parse.serverURL = "https://parseapi.back4app.com/";
 
-async function createParseUser() {
-    let user = new Parse.User();
-    user.set("name", document.getElementById("name").value);
-    user.set("username", document.getElementById("username").value); 
-    user.set("password", document.getElementById("password").value); 
-    user.set("cpf", document.getElementById("cpf").value);
-    user.set("email", document.getElementById("email").value);
-    user.set("plano", document.querySelector('input[name="plano"]:checked').value);
+async function saveNewUser() {
 
+
+    //isto que estou fazendo agora é horrivel, não me copiem, isto é uma medida desesperada
+
+    const username = document.getElementById('username').value;
+    const senha = document.getElementById('password').value;
+    const cpf = document.getElementById('cpf').value;
+    const email = document.getElementById('email').value;
+
+
+    const player = new Parse.Object('Barbearia');
+    player.set('Usuario', username );
+    player.set('Senha', senha );
+    player.set('Cpf', cpf );
+    player.set('Email', email);
+    
     try {
-        user = await user.signUp(); 
-        if (user) {
-            alert(`Novo usuário criado com sucesso!`);
-            window.location.href = `index.html?username=${user.get("username")}`;
-        }
+        // Salva o objeto no Parse Server
+        const result = await player.save();
+        console.log('Novo objeto criado com ID:', result.id);
+        alert('Usuário cadastrado com sucesso!');
     } catch (error) {
-        alert(`Error: ${error.message}`);
+        console.error('Falha ao salvar o objeto:', error.message);
+        alert('Erro ao cadastrar usuário: ' + error.message);
     }
 }
 
 document.getElementById("createButton").addEventListener("click", async function (event) {
-    event.preventDefault();
-    createParseUser();
+    event.preventDefault(); // Previne o envio padrão do formulário
+    await saveNewUser();
 });
 </script>
 
